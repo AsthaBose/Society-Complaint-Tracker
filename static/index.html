@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Society Complaint Tracker</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Society Complaints</div>
+  <div id="userbox" class="userbox hidden">
+    <span id="whoami"></span>
+    <button id="logout" class="btn ghost">Log out</button>
+  </div>
+</header>
+
+<main id="app">
+  <!-- AUTH -->
+  <section id="view-auth" class="card narrow hidden">
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Log in</button>
+      <button class="tab" data-tab="register">Register</button>
+    </div>
+    <form id="form-login" class="stack">
+      <label>Email <input name="email" type="email" required autocomplete="email"></label>
+      <label>Password <input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="btn primary">Log in</button>
+    </form>
+    <form id="form-register" class="stack hidden">
+      <label>Full name <input name="name" required minlength="2"></label>
+      <label>Email <input name="email" type="email" required autocomplete="email"></label>
+      <label>Flat number <input name="flat_no" required placeholder="e.g. B-204"></label>
+      <label>Password (8+ characters) <input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
+      <label>Committee code <span class="muted">(only if you are on the committee)</span>
+        <input name="committee_code" autocomplete="off"></label>
+      <button class="btn primary">Create account</button>
+    </form>
+    <p id="auth-error" class="error"></p>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="view-main" class="hidden">
+    <div id="stats" class="stats hidden"></div>
+
+    <div class="grid">
+      <div class="card" id="new-card">
+        <h2>Report a problem</h2>
+        <form id="form-complaint" class="stack">
+          <label>Title <input name="title" required minlength="3" maxlength="200" placeholder="e.g. Water leaking from ceiling"></label>
+          <label>Describe the issue <textarea name="description" required minlength="10" rows="4"></textarea></label>
+          <div class="row">
+            <label>Category
+              <select name="category">
+                <option value="">Auto-detect</option>
+                <option>plumbing</option><option>electrical</option><option>lift</option>
+                <option>security</option><option>cleaning</option><option>parking</option>
+                <option>noise</option><option>other</option>
+              </select>
+            </label>
+            <label>Urgency
+              <select name="urgency">
+                <option value="">Auto-detect</option>
+                <option>low</option><option>medium</option><option>high</option>
+              </select>
+            </label>
+          </div>
+          <button class="btn primary">Submit complaint</button>
+          <p id="complaint-error" class="error"></p>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="list-head">
+          <h2 id="list-title">My complaints</h2>
+          <div class="filters">
+            <select id="filter-status" aria-label="Filter by status">
+              <option value="">All statuses</option>
+              <option value="open">Open</option>
+              <option value="in_progress">In progress</option>
+              <option value="resolved">Resolved</option>
+            </select>
+            <select id="filter-category" aria-label="Filter by category">
+              <option value="">All categories</option>
+              <option>plumbing</option><option>electrical</option><option>lift</option>
+              <option>security</option><option>cleaning</option><option>parking</option>
+              <option>noise</option><option>other</option>
+            </select>
+          </div>
+        </div>
+        <ul id="complaint-list" class="list"></ul>
+        <p id="empty" class="muted hidden">Nothing here yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section id="view-detail" class="card hidden">
+    <button id="back" class="btn ghost">&larr; Back</button>
+    <div id="detail"></div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden" role="status"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

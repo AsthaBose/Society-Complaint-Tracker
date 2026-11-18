@@ -1,0 +1,1 @@
+"""Society complaint tracker."""
